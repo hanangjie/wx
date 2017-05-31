@@ -6,7 +6,7 @@ Page({
       height: 30,
       debug: false,
       interval:null,
-      debugMsg:"0",
+      debugMsg:"开始",
       polyline: [{
         points: [],
         color: "#FF0000DD",
@@ -20,6 +20,12 @@ Page({
     this.getLoc();
     this.mapCtx = wx.createMapContext('map')
     //_this.mapCtx.moveToLocation()
+    if(this.data.debug){
+      setTimeout(function(){
+        _this.testFn() 
+      },3000)
+      
+    }
   },
   startDraw: function () {
     var _this = this;
@@ -57,13 +63,13 @@ Page({
       success: function (res) {
         var speed = res.speed
         var accuracy = res.accuracy
-        var lbsList = _this.data.polyline[0].points
+        var lbsList = _this.data.polyline[0].points, latitude = res.latitude - 0.002325, longitude = res.longitude+0.004669
         //if (accuracy > 60) {
-          lbsList.push({ latitude: res.latitude, longitude: res.longitude })
+        lbsList.push({ latitude: latitude, longitude: longitude })
           _this.setData({
-            latitude: res.latitude,
-            longitude: res.longitude,
-            debugMsg: "获取成功，精度：" + accuracy + "经纬度：" + res.latitude + "," + res.longitude + "高度：" + res.altitude ,
+            latitude: latitude,
+            longitude: longitude,
+            debugMsg: "获取成功，精度：" + accuracy + "经纬度：" + latitude + "," + longitude ,
             polyline:[{
               points: lbsList,
               color: "#FF0000DD",
@@ -119,5 +125,27 @@ Page({
         // 转发失败
       }
     }
+  },
+  testFn: function () {
+    var _this=this;
+    var mapCtx = wx.createMapContext('map')
+    mapCtx.moveToLocation()
+    mapCtx.getCenterLocation({
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        var speed = res.speed
+        var accuracy = res.accuracy
+        var lbsList = _this.data.polyline[0].points
+        //if (accuracy > 60) {
+        _this.setData({
+          debugMsg: _this.data.debugMsg+ "经纬度：" + res.latitude + "," + res.longitude
+        })
+      }
+    })
   }
 })
