@@ -4,7 +4,8 @@ Page({
   data: {
       width: 30,
       height: 30,
-      debug: true,
+      debug: false,
+      interval:null,
       debugMsg:"0",
       polyline: [{
         points: [],
@@ -18,16 +19,35 @@ Page({
     var _this=this;
     this.getLoc();
     this.mapCtx = wx.createMapContext('map')
-    setInterval(function () {
-      _this.mapCtx.moveToLocation();
-    }, 3000)
+    //_this.mapCtx.moveToLocation()
   },
   startDraw: function () {
     var _this = this;
-    _this.getCenter();
+    /*_this.getCenter();
     setInterval(function () {
+      _this.mapCtx.moveToLocation();
       _this.getCenter();
-    }, 1000)
+    }, 3000)*/
+    this.interval=setInterval(function () {
+
+      _this.getLoc();
+      //_this.mapCtx.moveToLocation()
+    }, 3000)
+   
+  },
+  stopDraw:function(){
+    var _this = this;
+
+    clearInterval(this.interval)
+    wx.showToast({
+      title: '跑步结束记得截屏分享',
+      icon: 'success',
+      duration: 2000
+    })
+    this.mapCtx.includePoints({
+      padding: [10],
+      points: _this.data.polyline[0].points
+    })
   },
   //获取接口的经纬度
   getLoc:function(){
@@ -47,7 +67,7 @@ Page({
             polyline:[{
               points: lbsList,
               color: "#FF0000DD",
-              width: 2,
+              width: 5,
               dottedLine: false
             }]
           })
