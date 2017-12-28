@@ -1,9 +1,10 @@
 <!--index.wxml-->
 <view class="container" >
-  <view style="overflow:hidden">
+  <view style="overflow:hidden" class="tab">
     <button bindtap="startDraw" style="width:50%;float:left;">开始跑步</button>
     <button bindtap="stopDraw" style="width:50%;float:left;">跑步结束</button>
   </view>
   <div style="display:{{!debug?'none':''}}" >{{debugMsg}}</div>
-  <map id="map" scale="17"  longitude="{{longitude}}" latitude="{{latitude}}"  controls="{{controls}}" bindcontroltap="controltap" bindmarkertap="markertap" polyline="{{polyline}}"  show-location style="width: 100%; height: 600px;"></map>
+  <map id="map" scale="17"  longitude="{{longitude}}" latitude="{{latitude}}"  controls="{{controls}}" bindcontroltap="controltap" bindmarkertap="markertap" polyline="{{polyline}}"  show-location class="map"></map>
+  <view class="tips">跑步公里数:{{mileage}}米</view>
 </view>

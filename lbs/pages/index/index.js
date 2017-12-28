@@ -7,6 +7,7 @@ Page({
       debug: false,
       interval:null,
       debugMsg:"开始",
+      mileage:'0',
       polyline: [{
         points: [],
         color: "#FF0000DD",
@@ -29,15 +30,8 @@ Page({
   },
   startDraw: function () {
     var _this = this;
-    /*_this.getCenter();
-    setInterval(function () {
-      _this.mapCtx.moveToLocation();
-      _this.getCenter();
-    }, 3000)*/
     this.interval=setInterval(function () {
-
       _this.getLoc();
-      //_this.mapCtx.moveToLocation()
     }, 3000)
    
   },
@@ -63,24 +57,33 @@ Page({
       success: function (res) {
         var speed = res.speed
         var accuracy = res.accuracy
-        var lbsList = _this.data.polyline[0].points, latitude = res.latitude - 0.002325, longitude = res.longitude+0.004669
-        //if (accuracy > 60) {
+        var mileage = _this.data.mileage -0;
+        var lbsList = _this.data.polyline[0].points, latitude = res.latitude - 0.002325, longitude = res.longitude+0.004669;
         lbsList.push({ latitude: latitude, longitude: longitude })
-          _this.setData({
-            latitude: latitude,
-            longitude: longitude,
-            debugMsg: "获取成功，精度：" + accuracy + "经纬度：" + latitude + "," + longitude ,
-            polyline:[{
-              points: lbsList,
-              color: "#FF0000DD",
-              width: 5,
-              dottedLine: false
-            }]
-          })
-       // }
+        if (_this.data.polyline[0].points.length > 1) {
+          mileage = _this.getMile(lbsList[lbsList.length - 1], lbsList[lbsList.length - 2])-0 +mileage -0;
+        }
+        _this.setData({
+          latitude: latitude,
+          longitude: longitude,
+          mileage: mileage.toFixed(2),
+          debugMsg: "获取成功，里程:" + mileage+"精度：" + accuracy + "经纬度：" + latitude + "," + longitude ,
+          polyline:[{
+            points: lbsList,
+            color: "#FF0000DD",
+            width: 5,
+            dottedLine: false
+          }]
+        })
       }
     })
     /*结束*/
+  },
+  getMile(a,b){
+    let mile = 0;
+    mile = Math.pow((a.latitude - b.latitude), 2) + Math.pow((a.longitude - b.longitude), 2)
+    mile = Math.pow(mile, 1 / 2);
+    return mile * 120285.51801796898;
   },
   //获取地图中心位置
   getCenter: function () {
@@ -143,7 +146,7 @@ Page({
         var lbsList = _this.data.polyline[0].points
         //if (accuracy > 60) {
         _this.setData({
-          debugMsg: _this.data.debugMsg+ "经纬度：" + res.latitude + "," + res.longitude
+          debugMsg: _this.data.debugMsg
         })
       }
     })
