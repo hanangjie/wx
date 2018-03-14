@@ -53,12 +53,12 @@ Page({
   getLoc:function(){
     var _this = this;
     wx.getLocation({
-      type: 'wgs84',
+      type: 'gcj02',
       success: function (res) {
         var speed = res.speed
         var accuracy = res.accuracy
         var mileage = _this.data.mileage -0;
-        var lbsList = _this.data.polyline[0].points, latitude = res.latitude - 0.002325, longitude = res.longitude+0.004669;
+        var lbsList = _this.data.polyline[0].points, latitude = res.latitude, longitude = res.longitude;
         lbsList.push({ latitude: latitude, longitude: longitude })
         if (_this.data.polyline[0].points.length > 1) {
           mileage = _this.getMile(lbsList[lbsList.length - 1], lbsList[lbsList.length - 2])-0 +mileage -0;
