@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view class="container">
+  <textarea class="content" bindinput="bindBlur" placeholder="你在这想说什么。。。" />
+  <button class="btn" bindtap="write">记</button>
+</view>

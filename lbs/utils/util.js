@@ -10,6 +10,11 @@ function formatTime(date) {
 
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+const request = function (options) {
+  options.url = `${options.url}?t=${new Date().getTime()}`;
+  wx.request(options)
+}
+
 
 function formatNumber(n) {
   n = n.toString()
@@ -17,5 +22,6 @@ function formatNumber(n) {
 }
 
 module.exports = {
+  request,
   formatTime: formatTime
 }

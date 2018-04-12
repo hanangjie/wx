@@ -1,0 +1,18 @@
+/**index.wxss**/
+
+.container{
+  display: flex;
+}
+.map{
+  display: flex;
+  flex: 1;
+}
+.btn-write{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.text{
+  display: flex;
+}

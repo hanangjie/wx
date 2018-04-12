@@ -1,0 +1,18 @@
+<!--index.wxml-->
+<view class="container">
+  <map
+    id="map"
+    longitude="{{local.lng}}"
+    latitude="{{local.lat}}"
+    scale="14"
+    controls="{{controls}}"
+    bindcontroltap="controltap"
+    markers="{{markers}}"
+    bindmarkertap="markertap"
+    polyline="{{polyline}}"
+    bindregionchange="regionchange"
+    show-location
+    class="map"
+    style="width: 100%;"></map>
+    <button hidden="{{query ? true : false}}" class="btn-write" bindtap="write"><text class="text">记文</text></button>
+</view>

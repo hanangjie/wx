@@ -1,7 +1,21 @@
 {
   "pages":[
-    "pages/index/index"
+    "pages/diary/index",
+    "pages/index/index",
+    "pages/write/write"
   ],
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/diary/index",
+        "text": "记文"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "跑步"
+      }
+    ]
+  },
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",

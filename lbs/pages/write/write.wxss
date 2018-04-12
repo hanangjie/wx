@@ -1,0 +1,11 @@
+/**index.wxss**/
+.container{
+  background: #f7f7f7;
+}
+.content{
+  background: #fff;
+  font-size:14px;
+  padding:10px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
