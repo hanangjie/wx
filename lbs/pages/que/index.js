@@ -15,22 +15,11 @@ Page({
       inputContent: e.detail.value,
     })
   },
-  write: function () {
-    const that = this;
-    wx.getLocation({
-      type: 'gcj02',
-      success: (res) => {
-        this.addLoc(res.longitude, res.latitude)
-      }
-    })
-  },
-  addLoc: function (lng, lat) {
+  report: function (lng, lat) {
     util.request({
-      url: api.addLoc, //仅为示例，并非真实的接口地址
+      url: api.report, //仅为示例，并非真实的接口地址
       data: {
-        content: this.data.inputContent,
-        lng,
-        lat,
+        cont: this.data.inputContent, 
       },
       method: 'POST',
       header: {
@@ -39,9 +28,18 @@ Page({
       },
       success: function (res) {
         if (res.data.code === 200) {
-          wx.switchTab({
-            url: '../diary/index'
-          })
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000,
+            complete:function(){
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '../diary/index'
+                })
+              },2000)
+            }
+          });
         } else {
           wx.showToast({
             title: '失败',

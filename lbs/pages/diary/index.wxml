@@ -14,5 +14,5 @@
     show-location
     class="map"
     style="width: 100%;"></map>
-    <button hidden="{{query ? true : false}}" class="btn-write" bindtap="write"><text class="text">记文</text></button>
+    <button class="btn-write" bindtap="write"><text class="text">记录当前位置</text></button>
 </view>

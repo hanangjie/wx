@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view class="container">
+  <textarea class="content" bindinput="bindBlur" placeholder="有什么意见你尽管提，反正我是不会改的。" />
+  <button class="btn" bindtap="report">提交</button>
+</view>

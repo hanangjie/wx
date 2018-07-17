@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -27,7 +27,15 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "1",
+					"pathName": "pages/diary/index",
+					"query": "time=1525347950680&mind=oCPX70DhPi4FoRlpcxuNqT3pDofg1",
+					"scene": "1007"
+				}
+			]
 		}
 	}
 }

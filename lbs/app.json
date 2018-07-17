@@ -1,8 +1,10 @@
 {
   "pages":[
+    "pages/router/index",
     "pages/diary/index",
     "pages/index/index",
-    "pages/write/write"
+    "pages/write/write",
+    "pages/que/index"
   ],
   "tabBar": {
     "list": [
@@ -13,6 +15,10 @@
       {
         "pagePath": "pages/index/index",
         "text": "跑步"
+      },
+      {
+        "pagePath": "pages/que/index",
+        "text": "意见"
       }
     ]
   },

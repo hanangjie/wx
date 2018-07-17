@@ -1,0 +1,5 @@
+/* pages/router/index.wxss */
+.container{
+  display: flex;
+  justify-content: center;
+}

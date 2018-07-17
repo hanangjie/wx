@@ -3,6 +3,8 @@
 const app = getApp()
 const api = require('../../utils/api.js')
 const util = require('../../utils/util.js')
+
+let Query = '';
 Page({
   data: {
     local: {
@@ -17,34 +19,28 @@ Page({
     // console.log(id);
   },
   onLoad: function (query) {
-    this.getLocList(query);
+    //this.getLocList(query);
+    if (query.time) {
+      Query = query
+      this.setData({
+        query: query.mind,
+        time: query.time,
+      })
+    }
     wx.getLocation({
       type: 'wgs84',
       success: (res) => {
-        wx.setStorageSync('local', {
-          lng: res.longitude,
-          lat: res.latitude
+        this.setData({
+          local: {
+            lng: res.longitude,
+            lat: res.latitude
+          },
         })
-        if (query.time) {
-          this.setData({
-            query: query.mind,
-            time: query.time,
-            local: {
-              lng: res.longitude,
-              lat: res.latitude
-            },
-          })
-        } else {
-          this.setData({
-            local: {
-              lng: res.longitude,
-              lat: res.latitude
-            },
-          })
-        }
-        
       }
     })
+  },
+  onShow: function () {
+    this.getLocList(Query || {});
   },
   write: function () {
     wx.navigateTo({
@@ -60,17 +56,20 @@ Page({
       },
       header: {
         'content-type': 'application/json', // 默认值
-        'cookie': 'token=' + wx.getStorageSync('token') + ';'
+        'cookie': 'token=' + (data.mind ||wx.getStorageSync('token')) + ';'
       },
       success: function (res) {
+        Query = null;
+        const data = res.data.data;
         if (res.data.code === 200) {
-          let markers = res.data.data.data;
+          let markers = data.locList;
           markers = markers.map((e, i) => {
+            console.log(data.userInfo.avatarUrl)
             return {
               id: i,
               latitude: e.lat,
               longitude: e.lng,
-              iconPath: './local.png',
+              iconPath: data.userInfo.avatarUrl,
               width: 22,
               height: 22,
               callout: {
@@ -91,7 +90,7 @@ Page({
   onShareAppMessage: function (res) {
     return {
       title: '看看我的记文地图',
-      path: `/pages/index/index?mind=${wx.getStorageSync('token')}&time=${this.data.time || new Date().getTime()}`,
+      path: `/pages/diary/index?mind=${wx.getStorageSync('token')}&time=${this.data.time || new Date().getTime()}`,
       success: function (res) {
         // 转发成功
       },

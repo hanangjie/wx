@@ -9,8 +9,9 @@
 }
 .btn-write{
   display: flex;
-  width: 100%;
+  width: 60%;
   justify-content: center;
+  margin:12px auto 12px auto;
 }
 
 .text{

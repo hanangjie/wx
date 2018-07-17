@@ -43,6 +43,9 @@ App({
           userInfo: res.userInfo,
           name: wx.getStorageSync('token'),
         });
+      },
+      fail: function (res) {
+        console.log(res);
       }
     });
   },
