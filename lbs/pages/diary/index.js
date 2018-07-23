@@ -60,16 +60,18 @@ Page({
       },
       success: function (res) {
         Query = null;
+        const userInfo = wx.getStorageSync('userInfo');
         const data = res.data.data;
         if (res.data.code === 200) {
-          let markers = data.locList;
+          let markers = data.data || [];
+          console.log(userInfo.avatarUrl);
           markers = markers.map((e, i) => {
-            console.log(data.userInfo.avatarUrl)
+            console.log(e);
             return {
               id: i,
               latitude: e.lat,
               longitude: e.lng,
-              iconPath: data.userInfo.avatarUrl,
+              iconPath: './local.png',
               width: 22,
               height: 22,
               callout: {

@@ -1,4 +1,4 @@
-//app.js
+//app.js 11
 
 const api = require('./utils/api.js')
 const util = require('./utils/util.js')
@@ -39,6 +39,7 @@ App({
     wx.getUserInfo({
       success: function (res) {
         res.userInfo.gender = ['未知', '男', '女'][res.userInfo.gender];
+        wx.setStorageSync('userInfo', res.userInfo);
         that.login({
           userInfo: res.userInfo,
           name: wx.getStorageSync('token'),
@@ -62,8 +63,4 @@ App({
       }
     })
   },
-  globalData: {
-    userInfo: null,
-    localInfo: null,
-  }
 })

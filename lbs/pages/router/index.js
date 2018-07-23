@@ -7,7 +7,6 @@ Page({
   onLoad: function(e) {
     wx.getUserInfo({
       success: function(e){
-        console.log(e);
         if (e.rawData) {
           wx.switchTab({
             url: '../diary/index',
@@ -20,7 +19,6 @@ Page({
     })
   },
   bindGetUserInfo: function (e) {
-    console.log(e.detail.userInfo)
     if (e.detail.userInfo) {
       wx.switchTab({
         url: '../diary/index',
